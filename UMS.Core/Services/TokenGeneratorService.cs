@@ -1,7 +1,6 @@
 ﻿namespace UMS.Core.Services
 {
     using System;
-    using UMS.Core.Interfaces;
 
     /// <summary>
     /// Service class responsible for generating authentication tokens in the UMS Core module.

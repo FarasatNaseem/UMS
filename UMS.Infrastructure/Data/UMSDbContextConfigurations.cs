@@ -3,8 +3,16 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using UMS.Infrastructure.DTOs;
+
+    /// <summary>
+    /// Configurations for customizing the Entity Framework DbContext in the UMS application.
+    /// </summary>
     public class UMSDbContextConfigurations
     {
+        /// <summary>
+        /// Configures the Entity Framework DbContext using the provided ModelBuilder.
+        /// </summary>
+        /// <param name="modelBuilder">The ModelBuilder instance used to configure the DbContext.</param>
         public static void Configure(ModelBuilder modelBuilder)
         {
             // Configure custom entities
