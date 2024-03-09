@@ -12,8 +12,8 @@ using UMS.Infrastructure.Data;
 namespace UMS.Infrastructure.Migrations
 {
     [DbContext(typeof(UMSDbContext))]
-    [Migration("20240302152130_InitialDB")]
-    partial class InitialDB
+    [Migration("20240308225633_UMSInit")]
+    partial class UMSInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

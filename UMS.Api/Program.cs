@@ -22,7 +22,7 @@ builder.Services.RegisterService();
 builder.Services.RegisterSecurityService(builder.Configuration);
 
 builder.Services.AddDbContext<UMSDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("UMsDbConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("UMSDbConnection")));
 
 builder.Services.AddApiVersioning(options =>
 {
@@ -46,10 +46,20 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        c.RoutePrefix = string.Empty; // Ensures Swagger UI is at the application's root
+    });
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+
+// Conditionally use HTTPS redirection based on the configuration setting
+bool enableHttpsRedirection = builder.Configuration.GetValue<bool>("EnableHttpsRedirection", true);
+if (enableHttpsRedirection)
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthorization();
 

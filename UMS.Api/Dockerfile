@@ -5,11 +5,21 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+# Set ASPNETCORE_ENVIRONMENT to Development
+ENV ASPNETCORE_ENVIRONMENT=Development
+
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
+# Copy the main project file and restore as distinct layers
 COPY ["UMS.Api/UMS.Api.csproj", "UMS.Api/"]
+COPY ["UMS.Core/UMS.Core.csproj", "UMS.Core/"]
+COPY ["UMS.Infrastructure/UMS.Infrastructure.csproj", "UMS.Infrastructure/"]
 RUN dotnet restore "UMS.Api/UMS.Api.csproj"
-COPY . .
+
+# Copy everything else and build
+COPY UMS.Api/. UMS.Api/
+COPY UMS.Core/. UMS.Core/
+COPY UMS.Infrastructure/. UMS.Infrastructure/
 WORKDIR "/src/UMS.Api"
 RUN dotnet build "UMS.Api.csproj" -c Release -o /app/build
 
